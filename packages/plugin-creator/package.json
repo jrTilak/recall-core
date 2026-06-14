@@ -1,5 +1,6 @@
 {
   "name": "@recall/plugin-creator",
+  "version": "0.0.1",
   "module": "src/index.ts",
   "description": "A plugin creator for Recall",
   "type": "module",
