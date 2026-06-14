@@ -1,0 +1,16 @@
+{
+	"name": "@recall/logger",
+	"module": "index.ts",
+	"type": "module",
+	"description": "A simple logger for Recall Project",
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"pino": "^10.3.1",
+		"pino-pretty": "^13.1.3"
+	}
+}
