@@ -1,0 +1,87 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jrTilak/recall-core/refs/heads/master/packages/plugin-creator/schemes/v0.0.1/theme-config-schema.json",
+  "themes": [
+    {
+      "name": "Light",
+      "theme": {
+        "colors": {
+          "primary": "#00BDB0",
+          "primaryForeground": "#FFFFFF",
+
+          "background": "#FFFFFF",
+          "foreground": "#0F1A1A",
+
+          "muted": "#F1F3F5",
+          "mutedForeground": "#6B7280",
+
+          "card": "#F3F4F6",
+
+          "accent": "#F26040",
+
+          "border": "#E2E5E8",
+          "ring": "#00BDB0",
+
+          "destructive": "#E53935",
+          "destructiveLight": "#E539351A",
+          "destructiveForeground": "#FFFFFF",
+
+          "folder": "#F5A20A",
+
+          "warning": "#F5A20A",
+          "warningForeground": "#FFFFFF",
+
+          "success": "#22C55E",
+          "successForeground": "#FFFFFF",
+
+          "popover": "#FFFFFF",
+          "popoverForeground": "#0F1A1A",
+
+          "yellow": "#F5A20A",
+          "black": "#0F1A1A",
+          "white": "#FFFFFF"
+        }
+      }
+    },
+    {
+      "name": "Dark",
+      "theme": {
+        "colors": {
+          "primary": "#00BDB0",
+          "primaryForeground": "#FFFFFF",
+
+          "background": "#0E0F11",
+          "foreground": "#F0F2F3",
+
+          "muted": "#1A1C1E",
+          "mutedForeground": "#8A9299",
+
+          "card": "#1C1E21",
+
+          "accent": "#FF7A66",
+
+          "border": "#2D3135",
+          "ring": "#00BDB0",
+
+          "destructive": "#EF5350",
+          "destructiveLight": "#EF535033",
+          "destructiveForeground": "#FFFFFF",
+
+          "folder": "#FBBC2E",
+
+          "warning": "#FBBC2E",
+          "warningForeground": "#0E0F11",
+
+          "success": "#4ADE80",
+          "successForeground": "#0E0F11",
+
+          "popover": "#1C1E21",
+          "popoverForeground": "#F0F2F3",
+
+          "yellow": "#FBBC2E",
+          "black": "#0E0F11",
+          "white": "#FFFFFF"
+        }
+      }
+    }
+  ]
+}
