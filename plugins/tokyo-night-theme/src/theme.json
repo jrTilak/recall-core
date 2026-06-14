@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jrTilak/recall-core/refs/heads/master/packages/plugin-creator/schemes/v0.0.1/theme-config-schema.json",
+  "themes": [
+    {
+      "name": "Nord Light",
+      "theme": {
+        "colors": {
+          "primary": "#5E81AC",
+          "primaryForeground": "#ECEFF4",
+          "background": "#ECEFF4",
+          "foreground": "#2E3440",
+          "muted": "#E5E9F0",
+          "mutedForeground": "#4C566A",
+          "card": "#E5E9F0",
+          "accent": "#88C0D0",
+          "border": "#D8DEE9",
+          "destructive": "#BF616A",
+          "destructiveLight": "#BF616A33",
+          "destructiveForeground": "#ECEFF4",
+          "folder": "#EBCB8B",
+          "ring": "#5E81AC",
+          "warning": "#EBCB8B",
+          "warningForeground": "#2E3440",
+          "success": "#A3BE8C",
+          "successForeground": "#2E3440",
+          "popover": "#ECEFF4",
+          "popoverForeground": "#2E3440"
+        }
+      }
+    },
+    {
+      "name": "Recall Dark",
+      "theme": {
+        "colors": {
+          "primary": "#88C0D0",
+          "primaryForeground": "#2E3440",
+          "background": "#2E3440",
+          "foreground": "#ECEFF4",
+          "muted": "#3B4252",
+          "mutedForeground": "#D8DEE9",
+          "card": "#3B4252",
+          "accent": "#8FBCBB",
+          "border": "#4C566A",
+          "destructive": "#BF616A",
+          "destructiveLight": "#BF616A33",
+          "destructiveForeground": "#ECEFF4",
+          "folder": "#EBCB8B",
+          "ring": "#88C0D0",
+          "warning": "#EBCB8B",
+          "warningForeground": "#2E3440",
+          "success": "#A3BE8C",
+          "successForeground": "#2E3440",
+          "popover": "#3B4252",
+          "popoverForeground": "#ECEFF4"
+        }
+      }
+    }
+  ]
+}
