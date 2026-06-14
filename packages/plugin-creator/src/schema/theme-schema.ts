@@ -52,7 +52,13 @@ export const ThemeColorsSchema = z
       .describe("Name of the color theme displayed to users."),
     theme: z.object({
       // TODO: add support for other variables like font sizes, spacing etc in future
-      colors: z.record(ThemeColorVariables, z.string()),
+      colors: z
+        .object(
+          Object.fromEntries(
+            ThemeColorVariables.options.map((k) => [k, z.string()]),
+          ),
+        )
+        .partial(),
     }),
   })
   .describe("Semantic app color variables used across app");

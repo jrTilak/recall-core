@@ -17,62 +17,78 @@
             "properties": {
               "colors": {
                 "type": "object",
-                "propertyNames": {
-                  "type": "string",
-                  "enum": [
-                    "primary",
-                    "primaryForeground",
-                    "background",
-                    "foreground",
-                    "muted",
-                    "mutedForeground",
-                    "card",
-                    "accent",
-                    "destructive",
-                    "destructiveLight",
-                    "destructiveForeground",
-                    "warning",
-                    "warningForeground",
-                    "success",
-                    "successForeground",
-                    "folder",
-                    "ring",
-                    "border",
-                    "popover",
-                    "popoverForeground",
-                    "yellow",
-                    "black",
-                    "white"
-                  ]
+                "properties": {
+                  "primary": {
+                    "type": "string"
+                  },
+                  "primaryForeground": {
+                    "type": "string"
+                  },
+                  "background": {
+                    "type": "string"
+                  },
+                  "foreground": {
+                    "type": "string"
+                  },
+                  "muted": {
+                    "type": "string"
+                  },
+                  "mutedForeground": {
+                    "type": "string"
+                  },
+                  "card": {
+                    "type": "string"
+                  },
+                  "accent": {
+                    "type": "string"
+                  },
+                  "destructive": {
+                    "type": "string"
+                  },
+                  "destructiveLight": {
+                    "type": "string"
+                  },
+                  "destructiveForeground": {
+                    "type": "string"
+                  },
+                  "warning": {
+                    "type": "string"
+                  },
+                  "warningForeground": {
+                    "type": "string"
+                  },
+                  "success": {
+                    "type": "string"
+                  },
+                  "successForeground": {
+                    "type": "string"
+                  },
+                  "folder": {
+                    "type": "string"
+                  },
+                  "ring": {
+                    "type": "string"
+                  },
+                  "border": {
+                    "type": "string"
+                  },
+                  "popover": {
+                    "type": "string"
+                  },
+                  "popoverForeground": {
+                    "type": "string"
+                  },
+                  "yellow": {
+                    "type": "string"
+                  },
+                  "black": {
+                    "type": "string"
+                  },
+                  "white": {
+                    "type": "string"
+                  }
                 },
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "required": [
-                  "primary",
-                  "primaryForeground",
-                  "background",
-                  "foreground",
-                  "muted",
-                  "mutedForeground",
-                  "card",
-                  "accent",
-                  "destructive",
-                  "destructiveLight",
-                  "destructiveForeground",
-                  "warning",
-                  "warningForeground",
-                  "success",
-                  "successForeground",
-                  "folder",
-                  "ring",
-                  "border",
-                  "popover",
-                  "popoverForeground",
-                  "yellow",
-                  "black",
-                  "white"
-                ]
+                "additionalProperties": false
               }
             },
             "required": [

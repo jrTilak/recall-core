@@ -5,10 +5,11 @@
   "description": "A plugin creator for Recall",
   "type": "module",
   "bin": {
-    "build:plugin": "./bin/build-plugin.ts"
+    "build-recall-plugin": "./src/scripts/build-plugin.ts"
   },
   "scripts": {
-    "build:schema": "bun ./src/scripts/build-plugin-config-schema.ts"
+    "build:schema": "bun ./src/scripts/build-plugin-config-schema.ts",
+    "build": "bun build ./src/index.ts ./src/scripts/build-plugin.ts --outdir ./dist --minify --target bun"
   },
   "exports": {
     ".": {
