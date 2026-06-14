@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "themes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Name of the color theme displayed to users."
+          },
+          "theme": {
+            "type": "object",
+            "properties": {
+              "colors": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string",
+                  "enum": [
+                    "primary",
+                    "primaryForeground",
+                    "background",
+                    "foreground",
+                    "muted",
+                    "mutedForeground",
+                    "card",
+                    "accent",
+                    "destructive",
+                    "destructiveLight",
+                    "destructiveForeground",
+                    "warning",
+                    "warningForeground",
+                    "success",
+                    "successForeground",
+                    "folder",
+                    "ring",
+                    "border",
+                    "popover",
+                    "popoverForeground",
+                    "yellow",
+                    "black",
+                    "white"
+                  ]
+                },
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "required": [
+                  "primary",
+                  "primaryForeground",
+                  "background",
+                  "foreground",
+                  "muted",
+                  "mutedForeground",
+                  "card",
+                  "accent",
+                  "destructive",
+                  "destructiveLight",
+                  "destructiveForeground",
+                  "warning",
+                  "warningForeground",
+                  "success",
+                  "successForeground",
+                  "folder",
+                  "ring",
+                  "border",
+                  "popover",
+                  "popoverForeground",
+                  "yellow",
+                  "black",
+                  "white"
+                ]
+              }
+            },
+            "required": [
+              "colors"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "name",
+          "theme"
+        ],
+        "additionalProperties": false,
+        "description": "Semantic app color variables used across app"
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "themes",
+    "$schema"
+  ],
+  "additionalProperties": false
+}

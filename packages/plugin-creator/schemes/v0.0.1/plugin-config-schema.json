@@ -1,0 +1,103 @@
+{
+  "allOf": [
+    {
+      "$ref": "https://json.schemastore.org/package.json"
+    }
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?:@[a-zA-Z0-9-]+\\/)?[a-zA-Z0-9-]+$",
+      "description": "Unique identifier for the plugin"
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display name for the plugin"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Version of the plugin following semantic versioning ie Major.Minor.Patch"
+    },
+    "description": {
+      "description": "Short description of what the plugin does",
+      "type": "string"
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Primary author. Formats: 'Name' | 'Name <email>' | 'Name (url)'"
+    },
+    "homepage": {
+      "description": "Homepage or documentation URL for the plugin",
+      "type": "string",
+      "format": "uri"
+    },
+    "recall": {
+      "type": "object",
+      "properties": {
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ui.theme.static.write"
+            ]
+          },
+          "description": "List of permissions the plugin requires to operate"
+        },
+        "manifestVersion": {
+          "type": "string",
+          "enum": [
+            "0.0.1"
+          ],
+          "description": "The manifest for plugin which it is compatible with"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "theme",
+            "others"
+          ]
+        },
+        "iconUrl": {
+          "description": "URL to an icon representing the plugin",
+          "type": "string",
+          "format": "uri"
+        },
+        "tags": {
+          "description": "List of tags for categorizing the plugin",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "main": {
+          "description": "Main entry point for the plugin eg index.js (after the build)",
+          "type": "string"
+        },
+        "theme": {
+          "description": "A json file containing theme provided by the plugin (if any), If a file contains theme file, main entry file will be ignored",
+          "type": "string"
+        }
+      },
+      "required": [
+        "permissions",
+        "manifestVersion"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "name",
+    "displayName",
+    "version",
+    "author",
+    "recall"
+  ],
+  "additionalProperties": true
+}
