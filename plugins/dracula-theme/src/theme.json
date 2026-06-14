@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jrTilak/recall-core/refs/heads/master/packages/plugin-creator/schemes/v0.0.1/theme-config-schema.json",
+  "themes": [
+    {
+      "name": "Dracula",
+      "theme": {
+        "colors": {
+          "primary": "#BD93F9",
+          "primaryForeground": "#282A36",
+          "background": "#282A36",
+          "foreground": "#F8F8F2",
+          "muted": "#44475A",
+          "mutedForeground": "#6272A4",
+          "card": "#44475A",
+          "accent": "#FF79C6",
+          "border": "#44475A",
+          "destructive": "#FF5555",
+          "destructiveLight": "#FF555533",
+          "destructiveForeground": "#F8F8F2",
+          "folder": "#FFB86C",
+          "ring": "#BD93F9",
+          "warning": "#FFB86C",
+          "warningForeground": "#282A36",
+          "success": "#50FA7B",
+          "successForeground": "#282A36",
+          "popover": "#44475A",
+          "popoverForeground": "#F8F8F2"
+        }
+      }
+    }
+  ]
+}
