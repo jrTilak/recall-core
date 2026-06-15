@@ -1,59 +1,32 @@
 {
-  "$schema": "https://raw.githubusercontent.com/jrTilak/recall-core/refs/heads/master/packages/plugin-creator/schemes/v0.0.1/theme-config-schema.json",
-  "themes": [
-    {
-      "name": "Nord Light",
-      "theme": {
-        "colors": {
-          "primary": "#5E81AC",
-          "primaryForeground": "#ECEFF4",
-          "background": "#ECEFF4",
-          "foreground": "#2E3440",
-          "muted": "#E5E9F0",
-          "mutedForeground": "#4C566A",
-          "card": "#E5E9F0",
-          "accent": "#88C0D0",
-          "border": "#D8DEE9",
-          "destructive": "#BF616A",
-          "destructiveLight": "#BF616A33",
-          "destructiveForeground": "#ECEFF4",
-          "folder": "#EBCB8B",
-          "ring": "#5E81AC",
-          "warning": "#EBCB8B",
-          "warningForeground": "#2E3440",
-          "success": "#A3BE8C",
-          "successForeground": "#2E3440",
-          "popover": "#ECEFF4",
-          "popoverForeground": "#2E3440"
-        }
-      }
-    },
-    {
-      "name": "Recall Dark",
-      "theme": {
-        "colors": {
-          "primary": "#88C0D0",
-          "primaryForeground": "#2E3440",
-          "background": "#2E3440",
-          "foreground": "#ECEFF4",
-          "muted": "#3B4252",
-          "mutedForeground": "#D8DEE9",
-          "card": "#3B4252",
-          "accent": "#8FBCBB",
-          "border": "#4C566A",
-          "destructive": "#BF616A",
-          "destructiveLight": "#BF616A33",
-          "destructiveForeground": "#ECEFF4",
-          "folder": "#EBCB8B",
-          "ring": "#88C0D0",
-          "warning": "#EBCB8B",
-          "warningForeground": "#2E3440",
-          "success": "#A3BE8C",
-          "successForeground": "#2E3440",
-          "popover": "#3B4252",
-          "popoverForeground": "#ECEFF4"
-        }
-      }
-    }
-  ]
+	"$schema": "https://raw.githubusercontent.com/jrTilak/recall-core/refs/heads/master/packages/plugin-creator/schemes/v0.0.1/theme-config-schema.json",
+	"themes": [
+		{
+			"name": "Tokyo Night",
+			"theme": {
+				"colors": {
+					"primary": "#7AA2F7",
+					"primaryForeground": "#1A1B26",
+					"background": "#1A1B26",
+					"foreground": "#C0CAF5",
+					"muted": "#292E42",
+					"mutedForeground": "#565F89",
+					"card": "#1F2335",
+					"accent": "#BB9AF7",
+					"border": "#3B4261",
+					"destructive": "#F7768E",
+					"destructiveLight": "#F7768E33",
+					"destructiveForeground": "#1A1B26",
+					"folder": "#E0AF68",
+					"ring": "#7AA2F7",
+					"warning": "#E0AF68",
+					"warningForeground": "#1A1B26",
+					"success": "#9ECE6A",
+					"successForeground": "#1A1B26",
+					"popover": "#1F2335",
+					"popoverForeground": "#C0CAF5"
+				}
+			}
+		}
+	]
 }

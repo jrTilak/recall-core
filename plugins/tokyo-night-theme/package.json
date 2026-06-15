@@ -1,20 +1,20 @@
 {
-  "$schema": "https://raw.githubusercontent.com/jrTilak/recall-core/refs/heads/master/packages/plugin-creator/schemes/v0.0.1/plugin-config-schema.json",
-  "name": "@recall/tokyo-night-theme",
-  "displayName": "Tokyo Night",
-  "version": "0.0.1",
-  "description": "Adaptation of the popular Nord theme for Recall.",
-  "author": "Ian Howells <https://ianhowells.com/>",
-  "homepage": "https://tokyonight.org/",
-  "recall": {
-    "permissions": [
-      "ui.theme.static.write"
-    ],
-    "manifestVersion": "0.0.1",
-    "category": "theme",
-    "tags": [
-      "theme"
-    ],
-    "theme": "src/theme.json"
-  }
+	"$schema": "https://raw.githubusercontent.com/jrTilak/recall-core/refs/heads/master/packages/plugin-creator/schemes/v0.0.1/plugin-config-schema.json",
+	"name": "@recall/tokyo-night-theme",
+	"displayName": "Tokyo Night",
+	"version": "0.0.1",
+	"description": "Adaptation of the popular Tokyo Night Theme for Recall.",
+	"author": "Ian Howells <https://ianhowells.com/>",
+	"homepage": "https://tokyonight.org/",
+	"recall": {
+		"permissions": [
+			"ui.theme.static.write"
+		],
+		"manifestVersion": "0.0.1",
+		"category": "theme",
+		"tags": [
+			"theme"
+		],
+		"theme": "src/theme.json"
+	}
 }
