@@ -60,7 +60,7 @@ export const PluginConfigSchema = z.object({
 
 		manifestVersion: z
 			.enum(
-				AVAILABLE_MANIFEST_VERSIONS.filter((v) => !v.depricated).map(
+				AVAILABLE_MANIFEST_VERSIONS.filter((v) => !v.deprecated).map(
 					(v) => v.name,
 				),
 			)

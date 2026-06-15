@@ -1,0 +1,29 @@
+{
+	"name": "@recall/marketplace-server",
+	"type": "module",
+	"description": "Official the Recall Marketplace",
+	"private": true,
+	"scripts": {
+		"dev": "wrangler dev",
+		"deploy": "wrangler deploy --minify",
+		"cf-typegen": "wrangler types --env-interface CloudflareBindings",
+		"typecheck": "tsc --noEmit",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate:local": "wrangler d1 migrations apply recall-marketplace --local",
+		"db:migrate:remote": "wrangler d1 migrations apply recall-marketplace --remote"
+	},
+	"dependencies": {
+		"@recall/marketplace-interface": "workspace:*",
+		"@recall/plugin-schema": "workspace:*",
+		"better-auth": "^1.6.18",
+		"drizzle-orm": "^0.45.2",
+		"fflate": "^0.8.2",
+		"hono": "^4.12.25"
+	},
+	"devDependencies": {
+		"@types/node": "latest",
+		"drizzle-kit": "^0.31.10",
+		"typescript": "^5",
+		"wrangler": "^4.4.0"
+	}
+}

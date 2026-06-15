@@ -1,0 +1,33 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "recall-marketplace-worker",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-06-13",
+	"compatibility_flags": ["nodejs_compat"],
+	"vars": {
+		"MARKETPLACE_NAME": "Recall Plugin Registry",
+		"MARKETPLACE_DESCRIPTION": "Cloudflare-hosted registry for Recall plugins.",
+		"MARKETPLACE_NAMESPACE": "default",
+		"MAX_PLUGIN_ZIP_BYTES": "10485760"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "recall-marketplace",
+			"database_id": "511bf460-9c71-4fce-820d-b293371d60d8",
+			"migrations_dir": "drizzle"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "PLUGIN_BUCKET",
+			"bucket_name": "recall-marketplace-storage"
+		}
+	],
+	"observability": {
+		"logs": {
+			"enabled": false,
+			"invocation_logs": true
+		}
+	}
+}

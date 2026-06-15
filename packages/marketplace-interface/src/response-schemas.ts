@@ -32,9 +32,9 @@ export const MarketplaceUrlsSchema = z.object({
 
 export const MarketplaceInfoSchema = z.object({
 	name: z.string().min(1),
-	description: z.string().optional(),
-	iconUrl: z.string().optional(),
-	homepageUrl: z.string().optional(),
+	description: z.string().optional().nullable(),
+	iconUrl: z.string().optional().nullable(),
+	homepageUrl: z.string().optional().nullable(),
 
 	/**
 	 * Namespace used to identify plugins from this marketplace to avoid conflict.
@@ -57,12 +57,18 @@ export const PluginBaseSchema = z.object({
 	displayName: z.string().min(1),
 	description: z.string().nullable().optional(),
 	author: z.string().min(1),
+	homepageUrl: z.string().optional().nullable(),
 	latestVersion: z.string().min(1),
 	totalDownloads: z.number().default(0),
-	createdAt: z.string().optional(),
-	updatedAt: z.string().optional(),
-	category: z.string().optional(),
+	createdAt: z.string().optional().nullable(),
+	updatedAt: z.string().optional().nullable(),
+	category: z.string().optional().nullable(),
 	iconUrl: z.string().optional().nullable(),
+
+	publisher: z.object({
+		username: z.string().min(1),
+		isVerified: z.boolean(),
+	}),
 });
 export type PluginBaseType = z.infer<typeof PluginBaseSchema>;
 
@@ -76,9 +82,15 @@ export type PluginType = PluginBaseType & { id: string };
 
 export const ListPluginsResponseSchema = z.array(PluginBaseSchema);
 export type ListPluginsResponseType = PluginType[];
+export type ListPluginsResponseFromServerType = z.infer<
+	typeof ListPluginsResponseSchema
+>;
 
 export const FindPluginByNameSchema = PluginBaseSchema;
 export type FindPluginByNameType = PluginType;
+export type FindPluginByNameFromServerType = z.infer<
+	typeof FindPluginByNameSchema
+>;
 
 export const PluginVersionSchema = z.object({
 	version: z.string().min(1),

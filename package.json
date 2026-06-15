@@ -1,16 +1,17 @@
 {
-  "name": "@recall/core",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@biomejs/biome": "2.5.0",
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "workspaces": [
-    "packages/*",
-    "plugins/*"
-  ]
+	"name": "@recall/core",
+	"type": "module",
+	"private": true,
+	"devDependencies": {
+		"@biomejs/biome": "2.5.0",
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"workspaces": [
+		"packages/*",
+		"plugins/*",
+		"apps/*"
+	]
 }
