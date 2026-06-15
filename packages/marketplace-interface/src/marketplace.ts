@@ -40,13 +40,19 @@ class MarketplaceClient {
 	 * Supports both raw placeholders and URL-encoded placeholders.
 	 */
 	private _replaceTemplateValues(url: string, values: TemplateValues): string {
-		return Object.entries(values).reduce((result, [placeholder, value]) => {
-			if (value === undefined) return result;
-			const encodedValue = encodeURIComponent(value);
-			return result
-				.replaceAll(placeholder, encodedValue)
-				.replaceAll(encodeURIComponent(placeholder), encodedValue);
-		}, url);
+		const result = Object.entries(values).reduce(
+			(result, [placeholder, value]) => {
+				if (value === undefined) return result;
+				const encodedValue = encodeURIComponent(value);
+				return result
+					.replaceAll(placeholder, encodedValue)
+					.replaceAll(encodeURIComponent(placeholder), encodedValue);
+			},
+			url,
+		);
+
+		// Remove any leftover unresolved placeholders (plain or URL-encoded)
+		return result.replace(/<.+?>/g, "").replace(/%3C.+?%3E/gi, "");
 	}
 
 	/**
