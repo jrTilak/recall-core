@@ -44,10 +44,23 @@
       "name": "@recall/plugin-creator",
       "version": "0.0.1",
       "bin": {
-        "build:plugin": "./bin/build-plugin.ts",
+        "build-recall-plugin": "./src/scripts/build-plugin.ts",
       },
       "dependencies": {
         "@recall/logger": "workspace:*",
+        "@recall/plugin-schema": "workspace:*",
+        "zod": "^4.4.3",
+      },
+      "devDependencies": {
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
+    "packages/plugin-schema": {
+      "name": "@recall/plugin-schema",
+      "dependencies": {
         "zod": "^4.4.3",
       },
       "devDependencies": {
@@ -106,6 +119,8 @@
     "@recall/nord-theme": ["@recall/nord-theme@workspace:plugins/nord-theme"],
 
     "@recall/plugin-creator": ["@recall/plugin-creator@workspace:packages/plugin-creator"],
+
+    "@recall/plugin-schema": ["@recall/plugin-schema@workspace:packages/plugin-schema"],
 
     "@recall/tokyo-night-theme": ["@recall/tokyo-night-theme@workspace:plugins/tokyo-night-theme"],
 

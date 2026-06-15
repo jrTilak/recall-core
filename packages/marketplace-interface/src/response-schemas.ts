@@ -15,15 +15,10 @@ export const QUERY_PLACEHOLDER = "<query>";
  */
 export const MarketplaceUrlsSchema = z.object({
 	/**
-	 * Lists available plugins. Example: `/plugins`.
-	 *  TODO: Support pagination, filtering, and sorting etc by removing searchPlugins
+	 * Lists available plugins. Example: `/plugins` or `plugin?q=<query>`.
+	 *  TODO: Support pagination, filtering, and sorting etc
 	 * */
 	listPlugins: z.string(),
-
-	/**
-	 * Searches plugins by query. Example: `/plugins?q=<query>`.
-	 * */
-	searchPlugins: z.string(),
 
 	/** Reads a plugin by name. Example: `/plugins/<plugin-name>`. */
 	getPluginByName: z.string(),
@@ -109,6 +104,9 @@ export const PluginVersionSchema = z.object({
 	/** Permissions requested by the plugin. */
 	permissions: z.array(z.string()),
 
+	/**
+	 *  Path to main, theme file
+	 * */
 	main: z.string().optional().nullable(),
 	theme: z.string().optional().nullable(),
 
