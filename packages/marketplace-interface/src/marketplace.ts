@@ -42,9 +42,10 @@ class MarketplaceClient {
 	private _replaceTemplateValues(url: string, values: TemplateValues): string {
 		return Object.entries(values).reduce((result, [placeholder, value]) => {
 			if (value === undefined) return result;
+			const encodedValue = encodeURIComponent(value);
 			return result
-				.replaceAll(placeholder, value)
-				.replaceAll(encodeURIComponent(placeholder), encodeURIComponent(value));
+				.replaceAll(placeholder, encodedValue)
+				.replaceAll(encodeURIComponent(placeholder), encodedValue);
 		}, url);
 	}
 

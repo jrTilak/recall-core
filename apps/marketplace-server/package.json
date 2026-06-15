@@ -1,7 +1,7 @@
 {
 	"name": "@recall/marketplace-server",
 	"type": "module",
-	"description": "Official the Recall Marketplace",
+	"description": "Official Recall Marketplace",
 	"private": true,
 	"scripts": {
 		"dev": "wrangler dev",

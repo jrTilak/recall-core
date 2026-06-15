@@ -5,8 +5,8 @@
 	"compatibility_date": "2026-06-13",
 	"compatibility_flags": ["nodejs_compat"],
 	"vars": {
-		"MARKETPLACE_NAME": "Recall Plugin Registry",
-		"MARKETPLACE_DESCRIPTION": "Cloudflare-hosted registry for Recall plugins.",
+		"MARKETPLACE_NAME": "Default Marketplace",
+		"MARKETPLACE_DESCRIPTION": "Official marketplace for Recall plugins.",
 		"MARKETPLACE_NAMESPACE": "default",
 		"MAX_PLUGIN_ZIP_BYTES": "10485760"
 	},
