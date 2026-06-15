@@ -1,34 +1,25 @@
 {
-  "name": "@recall/plugin-creator",
-  "version": "0.0.1",
-  "module": "src/index.ts",
-  "description": "A plugin creator for Recall",
-  "type": "module",
-  "bin": {
-    "build-recall-plugin": "./src/scripts/build-plugin.ts"
-  },
-  "scripts": {
-    "build:schema": "bun ./src/scripts/build-plugin-config-schema.ts",
-    "build": "bun build ./src/index.ts ./src/scripts/build-plugin.ts --outdir ./dist --minify --target bun"
-  },
-  "exports": {
-    ".": {
-      "types": "./src/index.ts",
-      "import": "./src/index.ts"
-    },
-    "./build-plugin": {
-      "types": "./bin/build-plugin.ts",
-      "import": "./bin/build-plugin.ts"
-    }
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "dependencies": {
-    "zod": "^4.4.3",
-    "@recall/logger": "workspace:*"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  }
+	"name": "@recall/plugin-creator",
+	"version": "0.0.1",
+	"module": "src/index.ts",
+	"description": "A plugin creator for Recall",
+	"type": "module",
+	"bin": {
+		"build-recall-plugin": "./src/scripts/build-plugin.ts"
+	},
+	"scripts": {
+		"build:schema": "bun ./src/scripts/build-plugin-config-schema.ts",
+		"build": "bun build ./src/index.ts ./src/scripts/build-plugin.ts --outdir ./dist --minify --target bun"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"dependencies": {
+		"zod": "^4.4.3",
+		"@recall/logger": "workspace:*",
+		"@recall/plugin-schema": "workspace:*"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	}
 }
