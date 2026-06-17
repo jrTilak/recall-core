@@ -67,5 +67,6 @@ export const ThemeSchema = z.object({
 	themes: z.array(ThemeColorsSchema),
 });
 
+export type ThemeColorsSchemaType = z.infer<typeof ThemeColorsSchema>;
 export type ThemeSchemaType = z.infer<typeof ThemeSchema>;
 export type Theme = ThemeSchemaType;
