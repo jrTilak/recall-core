@@ -13,8 +13,8 @@
 		"db:migrate:remote": "wrangler d1 migrations apply recall-marketplace --remote"
 	},
 	"dependencies": {
-		"@recall/marketplace-interface": "workspace:*",
-		"@recall/plugin-schema": "workspace:*",
+		"@jrtilak-recall/marketplace-interface": "0.0.1-alpha",
+		"@jrtilak-recall/plugin-schema": "0.0.1-alpha",
 		"better-auth": "^1.6.18",
 		"drizzle-orm": "^0.45.2",
 		"fflate": "^0.8.2",

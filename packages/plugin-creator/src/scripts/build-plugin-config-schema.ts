@@ -1,6 +1,5 @@
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
-import { log } from "@jrtilak-recall/logger";
 import {
 	LATEST_MANIFEST_VERSION,
 	PluginConfigSchema,
@@ -43,7 +42,7 @@ async function writeSchema(filePath: string, schema: object): Promise<void> {
 }
 
 async function generatePluginConfigSchema(): Promise<void> {
-	log.info("Generating plugin config schema...");
+	console.log("Generating plugin config schema...");
 
 	const jsonSchema = z.toJSONSchema(PluginConfigSchema);
 	const extended = {
@@ -54,11 +53,11 @@ async function generatePluginConfigSchema(): Promise<void> {
 
 	const outPath = path.join(SCHEMA_DIR, "plugin-config-schema.json");
 	await writeSchema(outPath, extended);
-	log.info(`Plugin config schema written → ${outPath}`);
+	console.log(`Plugin config schema written → ${outPath}`);
 }
 
 async function generateThemeConfigSchema(): Promise<void> {
-	log.info("Generating theme config schema...");
+	console.log("Generating theme config schema...");
 
 	const themeConfigSchema = z.toJSONSchema(
 		ThemeSchema.extend({ $schema: z.string() }),
@@ -66,14 +65,14 @@ async function generateThemeConfigSchema(): Promise<void> {
 
 	const outPath = path.join(SCHEMA_DIR, "theme-config-schema.json");
 	await writeSchema(outPath, themeConfigSchema);
-	log.info(`Theme config schema written → ${outPath}`);
+	console.log(`Theme config schema written → ${outPath}`);
 }
 
 async function main(): Promise<void> {
-	log.info(
+	console.log(
 		`Generating JSON Schemas for manifest v${LATEST_MANIFEST_VERSION}...`,
 	);
-	log.info(`Output directory: ${SCHEMA_DIR}`);
+	console.log(`Output directory: ${SCHEMA_DIR}`);
 
 	const start = performance.now();
 
@@ -88,13 +87,13 @@ async function main(): Promise<void> {
 	for (const [i, result] of results.entries()) {
 		if (result.status === "rejected") {
 			const err = result.reason;
-			log.error(
+			console.error(
 				`Failed to generate "${tasks[i]!.name}" schema: ${
 					err instanceof Error ? err.message : String(err)
 				}`,
 			);
 			if (err instanceof Error && err.stack) {
-				log.debug(err.stack);
+				console.debug(err.stack);
 			}
 			failed = true;
 		}
@@ -103,19 +102,19 @@ async function main(): Promise<void> {
 	const elapsed = (performance.now() - start).toFixed(1);
 
 	if (failed) {
-		log.error(`Schema generation finished with errors after ${elapsed}ms.`);
+		console.error(`Schema generation finished with errors after ${elapsed}ms.`);
 		process.exit(1);
 	}
 
-	log.info(`All schemas generated successfully in ${elapsed}ms.`);
+	console.log(`All schemas generated successfully in ${elapsed}ms.`);
 }
 
 main().catch((err) => {
-	log.error(
+	console.error(
 		`Unexpected fatal error: ${err instanceof Error ? err.message : String(err)}`,
 	);
 	if (err instanceof Error && err.stack) {
-		log.debug(err.stack);
+		console.debug(err.stack);
 	}
 	process.exit(1);
 });

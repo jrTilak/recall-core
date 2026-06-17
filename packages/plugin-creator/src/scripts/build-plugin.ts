@@ -2,7 +2,6 @@
 
 import { rm } from "node:fs/promises";
 import { join } from "node:path";
-import { log } from "@jrtilak-recall/logger";
 import { PluginConfigSchema, ThemeSchema } from "@jrtilak-recall/plugin-schema";
 import z from "zod";
 
@@ -11,26 +10,26 @@ const __DIST_THEME_PATH = "theme.json";
 const root = process.cwd();
 const distDir = join(root, "dist");
 
-log.info(`Building plugin from dir ${root} ...`);
+console.log(`Building plugin from dir ${root} ...`);
 
-log.info("Cleaning dist directory...");
+console.log("Cleaning dist directory...");
 
 await rm(distDir, { recursive: true, force: true });
 
 const pkg = await Bun.file(join(root, "package.json")).json();
 
 if (!pkg) {
-	log.error("No package.json found in plugin root");
+	console.error("No package.json found in plugin root");
 	process.exit(1);
 }
 
 const result = PluginConfigSchema.safeParse(pkg);
 
 if (!result.success) {
-	log.error(
+	console.error(
 		"Invalid plugin config: package.json does not conform to PluginConfigSchema",
 	);
-	log.error(z.treeifyError(result.error));
+	console.error(z.treeifyError(result.error));
 	process.exit(1);
 }
 
@@ -46,31 +45,31 @@ const newManifst = {
 
 await Bun.write(join(distDir, "manifest.json"), JSON.stringify(newManifst));
 
-log.info("Plugin manifest generated");
+console.log("Plugin manifest generated");
 
 const theme = pkgJson.recall.theme;
 
 if (theme) {
-	log.info("Plugin has theme, copying theme files...");
+	console.log("Plugin has theme, copying theme files...");
 	const themeJson = await Bun.file(join(root, theme)).json();
 
 	if (!themeJson) {
-		log.error(`Theme file ${theme} not found or invalid JSON`);
+		console.error(`Theme file ${theme} not found or invalid JSON`);
 		process.exit(1);
 	}
 
 	const result = ThemeSchema.safeParse(themeJson);
 
 	if (!result.success) {
-		log.error(
+		console.error(
 			"Invalid plugin theme: theme file does not conform to ThemeSchema",
 		);
-		log.error(z.treeifyError(result.error));
+		console.error(z.treeifyError(result.error));
 		process.exit(1);
 	}
 
 	Bun.write(join(distDir, __DIST_THEME_PATH), JSON.stringify(result.data));
-	log.info("Plugin theme generated");
+	console.log("Plugin theme generated");
 }
 
 const main = pkgJson.recall.main;
@@ -80,10 +79,10 @@ if (main) {
 }
 
 if (!main && !theme) {
-	log.error("Plugin must have either a main file or a theme");
+	console.error("Plugin must have either a main file or a theme");
 	process.exit(1);
 }
 
-log.info("Plugin build complete");
+console.log("Plugin build complete");
 
 // TODO: also zip the plguin using `zip` if available
