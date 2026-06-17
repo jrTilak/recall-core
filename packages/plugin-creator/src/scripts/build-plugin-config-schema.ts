@@ -1,11 +1,11 @@
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
-import { logger } from "@recall/logger";
+import { log } from "@jrtilak-recall/logger";
 import {
 	LATEST_MANIFEST_VERSION,
 	PluginConfigSchema,
 	ThemeSchema,
-} from "@recall/plugin-schema";
+} from "@jrtilak-recall/plugin-schema";
 import z from "zod";
 
 const SCHEMA_DIR = path.resolve(
@@ -43,7 +43,7 @@ async function writeSchema(filePath: string, schema: object): Promise<void> {
 }
 
 async function generatePluginConfigSchema(): Promise<void> {
-	logger.info("Generating plugin config schema...");
+	log.info("Generating plugin config schema...");
 
 	const jsonSchema = z.toJSONSchema(PluginConfigSchema);
 	const extended = {
@@ -54,11 +54,11 @@ async function generatePluginConfigSchema(): Promise<void> {
 
 	const outPath = path.join(SCHEMA_DIR, "plugin-config-schema.json");
 	await writeSchema(outPath, extended);
-	logger.info(`Plugin config schema written → ${outPath}`);
+	log.info(`Plugin config schema written → ${outPath}`);
 }
 
 async function generateThemeConfigSchema(): Promise<void> {
-	logger.info("Generating theme config schema...");
+	log.info("Generating theme config schema...");
 
 	const themeConfigSchema = z.toJSONSchema(
 		ThemeSchema.extend({ $schema: z.string() }),
@@ -66,14 +66,14 @@ async function generateThemeConfigSchema(): Promise<void> {
 
 	const outPath = path.join(SCHEMA_DIR, "theme-config-schema.json");
 	await writeSchema(outPath, themeConfigSchema);
-	logger.info(`Theme config schema written → ${outPath}`);
+	log.info(`Theme config schema written → ${outPath}`);
 }
 
 async function main(): Promise<void> {
-	logger.info(
+	log.info(
 		`Generating JSON Schemas for manifest v${LATEST_MANIFEST_VERSION}...`,
 	);
-	logger.info(`Output directory: ${SCHEMA_DIR}`);
+	log.info(`Output directory: ${SCHEMA_DIR}`);
 
 	const start = performance.now();
 
@@ -88,13 +88,13 @@ async function main(): Promise<void> {
 	for (const [i, result] of results.entries()) {
 		if (result.status === "rejected") {
 			const err = result.reason;
-			logger.error(
+			log.error(
 				`Failed to generate "${tasks[i]!.name}" schema: ${
 					err instanceof Error ? err.message : String(err)
 				}`,
 			);
 			if (err instanceof Error && err.stack) {
-				logger.debug(err.stack);
+				log.debug(err.stack);
 			}
 			failed = true;
 		}
@@ -103,19 +103,19 @@ async function main(): Promise<void> {
 	const elapsed = (performance.now() - start).toFixed(1);
 
 	if (failed) {
-		logger.error(`Schema generation finished with errors after ${elapsed}ms.`);
+		log.error(`Schema generation finished with errors after ${elapsed}ms.`);
 		process.exit(1);
 	}
 
-	logger.info(`All schemas generated successfully in ${elapsed}ms.`);
+	log.info(`All schemas generated successfully in ${elapsed}ms.`);
 }
 
 main().catch((err) => {
-	logger.error(
+	log.error(
 		`Unexpected fatal error: ${err instanceof Error ? err.message : String(err)}`,
 	);
 	if (err instanceof Error && err.stack) {
-		logger.debug(err.stack);
+		log.debug(err.stack);
 	}
 	process.exit(1);
 });
