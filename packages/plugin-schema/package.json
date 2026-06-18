@@ -1,10 +1,25 @@
 {
 	"name": "@jrtilak-recall/plugin-schema",
 	"description": "Common schema definitions for Recall plugins.",
+	"homepage": "https://docs.recall.jrtilak.dev/core-packages/plugin-schema/",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jrTilak/recall-core.git",
+		"directory": "packages/plugin-schema"
+	},
+	"bugs": {
+		"url": "https://github.com/jrTilak/recall-core/issues"
+	},
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
+	"type": "module",
+	"sideEffects": false,
 	"private": false,
 	"version": "0.0.1-alpha",
+	"files": [
+		"dist",
+		"README.md"
+	],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
@@ -12,13 +27,14 @@
 		}
 	},
 	"scripts": {
-		"build": "bun build ./src/index.ts --outdir ./dist --minify --target bun && tsc -p tsconfig.build.json"
+		"build": "rm -rf ./dist && bun build ./src/index.ts --outdir ./dist --minify --target browser --external zod && tsc -p tsconfig.build.json",
+		"test": "bun test"
 	},
 	"devDependencies": {
-		"@types/bun": "latest"
+		"@types/bun": "latest",
+		"typescript": "^5"
 	},
-	"peerDependencies": {
-		"typescript": "^5",
+	"dependencies": {
 		"zod": "^4.4.3"
 	},
 	"publishConfig": {

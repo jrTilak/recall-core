@@ -1,12 +1,14 @@
-import z from "zod";
+import { z } from "zod";
 
-export const Permissions = z.enum([
+/**
+ * Permissions a plugin may request from Recall.
+ */
+export const PluginPermissionSchema = z.enum([
 	/**
-	 * Change the color theme and other ui variables statically via config
-	 * Genrally used to modify the overall theme of app.
-	 * Only this Permission is sufficient for theme plugins
-	 **/
+	 * Changes the color theme and other UI variables statically through
+	 * configuration. This permission is sufficient for theme-only plugins.
+	 */
 	"ui.theme.static.write",
 ]);
 
-export type Permission = z.infer<typeof Permissions>;
+export type PluginPermission = z.infer<typeof PluginPermissionSchema>;

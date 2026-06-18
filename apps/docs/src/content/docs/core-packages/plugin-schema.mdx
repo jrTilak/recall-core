@@ -1,0 +1,37 @@
+---
+title: Plugin Schema
+description: Shared schemas and types for Recall plugins.
+---
+
+`@jrtilak-recall/plugin-schema` provides the Zod schemas and TypeScript types
+used to validate Recall plugin manifests and theme files.
+
+[View the package source on GitHub](https://github.com/jrTilak/recall-core/tree/master/packages/plugin-schema)
+
+## JSON Schemas
+
+For most plugin projects, you do not need to install the package or use its
+TypeScript types. Add the appropriate JSON Schema to your JSON file to get
+editor validation and autocomplete:
+
+- [Plugin config schema](https://recall.jrtilak.dev/schemas/plugin-config/0.0.1.json)
+- [Theme config schema](https://recall.jrtilak.dev/schemas/theme-config/0.0.1.json)
+
+```json
+{
+  "$schema": "https://recall.jrtilak.dev/schemas/plugin-config/0.0.1.json"
+}
+```
+
+Use the npm package when you need TypeScript types or runtime validation:
+
+```sh
+bun add @jrtilak-recall/plugin-schema
+```
+
+The package includes schemas for plugin metadata, Recall-specific configuration,
+permissions, manifest versions, categories, and theme color definitions.
+
+See the
+[default theme plugin](https://github.com/jrTilak/recall-core/tree/master/plugins/default-theme)
+for a complete plugin manifest and theme configuration example.

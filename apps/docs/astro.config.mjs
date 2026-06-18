@@ -27,10 +27,23 @@ export default defineConfig({
 							label: "Marketplace Interface",
 							slug: "core-packages/marketplace-interface",
 						},
+						{
+							label: "Plugin Schema",
+							slug: "core-packages/plugin-schema",
+						},
 					],
 				},
 				{
-					label: "Build with Recall",
+					label: "Build a Plugin",
+					items: [
+						{
+							label: "Permissions",
+							slug: "build/plugin/permissions",
+						},
+					],
+				},
+				{
+					label: "Build a Marketplace",
 					items: [
 						{
 							label: "Build a Marketplace Server",

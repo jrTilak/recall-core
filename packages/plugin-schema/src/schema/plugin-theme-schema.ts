@@ -1,9 +1,12 @@
-import z from "zod";
+import { z } from "zod";
 
-export const ThemeColorVariables = z.enum([
+/**
+ * Color variable names supported by Recall themes.
+ */
+export const ThemeColorNameSchema = z.enum([
 	/**
-	 *  Semantic colors
-	 **/
+	 * Semantic colors.
+	 */
 
 	"primary",
 	"primaryForeground",
@@ -28,45 +31,55 @@ export const ThemeColorVariables = z.enum([
 	"success",
 	"successForeground",
 
-	"folder",
+	"folder", // Default folder color.
 
-	"ring",
+	"ring", // Used when interactive elements are focused.
 	"border",
 
 	"popover",
 	"popoverForeground",
 
 	/**
-	 *  Non-Semantic colors
-	 **/
+	 * Non-semantic colors.
+	 */
 	"yellow",
 	"black",
 	"white",
 ]);
 
-export const ThemeColorsSchema = z
+const ThemeColorValuesSchema = z
+	.object(
+		Object.fromEntries(
+			ThemeColorNameSchema.options.map((name) => [name, z.string()]),
+		),
+	)
+	.partial();
+
+/**
+ * One named theme and the UI variables it overrides.
+ */
+export const ThemeDefinitionSchema = z
 	.object({
 		name: z
 			.string()
 			.nonempty()
 			.describe("Name of the color theme displayed to users."),
 		theme: z.object({
-			// TODO: add support for other variables like font sizes, spacing etc in future
-			colors: z
-				.object(
-					Object.fromEntries(
-						ThemeColorVariables.options.map((k) => [k, z.string()]),
-					),
-				)
-				.partial(),
+			// TODO: Add support for other variables such as font sizes and spacing.
+			colors: ThemeColorValuesSchema,
 		}),
 	})
-	.describe("Semantic app color variables used across app");
+	.describe("Semantic app color variables used across Recall");
 
+/**
+ * Theme configuration file containing one or more named themes.
+ */
 export const ThemeSchema = z.object({
-	themes: z.array(ThemeColorsSchema),
+	themes: z.array(ThemeDefinitionSchema),
 });
 
-export type ThemeColorsSchemaType = z.infer<typeof ThemeColorsSchema>;
-export type ThemeSchemaType = z.infer<typeof ThemeSchema>;
-export type Theme = ThemeSchemaType;
+export type ThemeColorName = z.output<typeof ThemeColorNameSchema>;
+export type ThemeDefinitionInput = z.input<typeof ThemeDefinitionSchema>;
+export type ThemeDefinition = z.output<typeof ThemeDefinitionSchema>;
+export type ThemeInput = z.input<typeof ThemeSchema>;
+export type Theme = z.output<typeof ThemeSchema>;
