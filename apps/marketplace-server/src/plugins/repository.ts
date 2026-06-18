@@ -2,7 +2,7 @@ import type {
 	FindPluginByNameFromServerType,
 	ListPluginsResponseFromServerType,
 } from "@recall/marketplace-interface";
-import type { PluginConfigSchemaType } from "@recall/plugin-schema";
+import type { PluginConfig } from "@recall/plugin-schema";
 import { and, desc, eq, like, or, sql } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { Context } from "hono";
@@ -18,7 +18,7 @@ type PublisherRow = typeof schema.publishers.$inferSelect;
 type AppContext = Context<{ Bindings: Env }>;
 
 type SavePluginVersionArgs = {
-	manifest: PluginConfigSchemaType;
+	manifest: PluginConfig;
 	manifestJson: string;
 	r2Key: string;
 	size: number;

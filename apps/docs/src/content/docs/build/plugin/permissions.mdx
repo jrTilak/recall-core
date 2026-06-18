@@ -1,0 +1,33 @@
+---
+title: Plugin Permissions
+description: Permissions available to Recall plugins.
+---
+
+Plugins declare the capabilities they need in the `recall.permissions` array of
+their manifest. Every plugin must declare at least one permission. Request only
+the permissions required for the plugin to work.
+
+```json
+{
+  "recall": {
+    "permissions": ["ui.theme.static.write"]
+  }
+}
+```
+
+The available permissions are defined by
+[`PluginPermissionSchema`](https://github.com/jrTilak/recall-core/blob/master/packages/plugin-schema/src/schema/plugin-permissions.ts).
+
+## Available permissions
+
+### `ui.theme.static.write`
+
+Allows a plugin to provide static theme configuration that changes Recall's
+colors and other supported UI theme variables.
+
+Use this permission for theme plugins whose appearance is defined through a
+theme JSON file. Theme-only plugins do not need additional permissions.
+
+See the
+[default theme plugin](https://github.com/jrTilak/recall-core/tree/master/plugins/default-theme)
+for a complete example.

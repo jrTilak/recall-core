@@ -26,8 +26,8 @@
     "apps/marketplace-server": {
       "name": "@recall/marketplace-server",
       "dependencies": {
-        "@jrtilak-recall/marketplace-interface": "workspace:*",
-        "@jrtilak-recall/plugin-schema": "workspace:*",
+        "@jrtilak-recall/marketplace-interface": "0.0.1-alpha",
+        "@jrtilak-recall/plugin-schema": "0.0.1-alpha",
         "better-auth": "^1.6.18",
         "drizzle-orm": "^0.45.2",
         "fflate": "^0.8.2",
@@ -42,7 +42,7 @@
     },
     "packages/marketplace-interface": {
       "name": "@jrtilak-recall/marketplace-interface",
-      "version": "0.0.1-alpha",
+      "version": "0.0.2-alpha",
       "dependencies": {
         "zod": "^4.4.3",
       },
@@ -74,12 +74,12 @@
     "packages/plugin-schema": {
       "name": "@jrtilak-recall/plugin-schema",
       "version": "0.0.1-alpha",
+      "dependencies": {
+        "zod": "^4.4.3",
+      },
       "devDependencies": {
         "@types/bun": "latest",
-      },
-      "peerDependencies": {
         "typescript": "^5",
-        "zod": "^4.4.3",
       },
     },
     "plugins/default-theme": {
@@ -101,7 +101,6 @@
     "scripts/build-assets": {
       "name": "@jrtilak-recall/build-assets",
       "dependencies": {
-        "@jrtilak-recall/marketplace-interface": "^0.0.1-alpha",
         "@jrtilak-recall/plugin-schema": "^0.0.1-alpha",
         "zod": "^4.4.3",
       },
@@ -1121,6 +1120,8 @@
     "@esbuild-kit/esm-loader/get-tsconfig": ["get-tsconfig@4.14.0", "", { "dependencies": { "resolve-pkg-maps": "^1.0.0" } }, "sha512-yTb+8DXzDREzgvYmh6s9vHsSVCHeC0G3PI5bEXNBHtmshPnO+S5O7qgLEOn0I5QvMy6kpZN8K1NKGyilLb93wA=="],
 
     "@mdx-js/mdx/estree-walker": ["estree-walker@3.0.3", "", { "dependencies": { "@types/estree": "^1.0.0" } }, "sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g=="],
+
+    "@recall/marketplace-server/@jrtilak-recall/marketplace-interface": ["@jrtilak-recall/marketplace-interface@0.0.1-alpha", "", { "dependencies": { "zod": "^4.4.3" }, "peerDependencies": { "typescript": "^5" } }, "sha512-Fiq3/GXfqaINKLIjSvjO/DA/Qe0VQUe9Q2mOJge2BNFl6Ly2SX2tlxCZ5wF38XiEYsUvZi4q21H6xtZNusqftQ=="],
 
     "anymatch/picomatch": ["picomatch@2.3.2", "", {}, "sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA=="],
 
