@@ -102,7 +102,7 @@
           "theme"
         ],
         "additionalProperties": false,
-        "description": "Semantic app color variables used across app"
+        "description": "Semantic app color variables used across Recall"
       }
     },
     "$schema": {

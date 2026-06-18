@@ -1,5 +1,4 @@
 import { runTasks } from "./lib/run-tasks";
-import { buildMarketplaceInterfaceSchemas } from "./scripts/build-marketplace-interface-schema";
 import { buildPluginConfigSchemas } from "./scripts/build-plugin-config-schema";
 
 async function main(): Promise<void> {
@@ -9,10 +8,6 @@ async function main(): Promise<void> {
 		{
 			name: "plugin configuration schemas",
 			run: buildPluginConfigSchemas,
-		},
-		{
-			name: "marketplace interface schemas",
-			run: buildMarketplaceInterfaceSchemas,
 		},
 	]);
 

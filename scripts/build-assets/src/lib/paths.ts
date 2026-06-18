@@ -1,15 +1,16 @@
 import path from "node:path";
 
 export const REPOSITORY_ROOT = path.resolve(import.meta.dir, "../../../..");
-export const PUBLIC_SCHEMA_DIR = path.join(REPOSITORY_ROOT, "public/schema");
+export const SCHEMAS_DIR = path.join(REPOSITORY_ROOT, "apps/web", "schemas");
 
-export function getVersionedSchemaDir(version: string): string {
-	return path.join(PUBLIC_SCHEMA_DIR, `v${version}`);
-}
-
-export function getPackageSchemaDir(
-	packageName: string,
+/**
+ * Returns the canonical output path for one version of a generated schema.
+ *
+ * @example `apps/web/schemas/plugin-config/0.0.1.json`
+ */
+export function getSchemaVersionPath(
+	schemaName: string,
 	version: string,
 ): string {
-	return path.join(PUBLIC_SCHEMA_DIR, packageName, `v${version}`);
+	return path.join(SCHEMAS_DIR, schemaName, `${version}.json`);
 }

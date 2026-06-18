@@ -21,7 +21,8 @@
     "version": {
       "type": "string",
       "minLength": 1,
-      "description": "Version of the plugin following semantic versioning ie Major.Minor.Patch"
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Plugin version following the Major.Minor.Patch format"
     },
     "description": {
       "description": "Short description of what the plugin does",
@@ -55,7 +56,7 @@
           "enum": [
             "0.0.1"
           ],
-          "description": "The manifest for plugin which it is compatible with"
+          "description": "The Recall plugin manifest version this plugin is compatible with"
         },
         "category": {
           "type": "string",
@@ -77,11 +78,11 @@
           }
         },
         "main": {
-          "description": "Main entry point for the plugin eg index.js (after the build)",
+          "description": "Compiled main entry point for the plugin, for example index.js",
           "type": "string"
         },
         "theme": {
-          "description": "A json file containing theme provided by the plugin (if any), If a file contains theme file, main entry file will be ignored",
+          "description": "JSON file containing themes provided by the plugin. When present, the main entry file is currently ignored",
           "type": "string"
         }
       },
