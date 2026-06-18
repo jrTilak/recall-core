@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1
+    },
+    "homepageUrl": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "latestVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "totalDownloads": {
+      "default": 0,
+      "type": "number"
+    },
+    "createdAt": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "updatedAt": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "category": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "iconUrl": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "publisher": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "minLength": 1
+        },
+        "isVerified": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "username",
+        "isVerified"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "name",
+    "displayName",
+    "author",
+    "latestVersion",
+    "totalDownloads",
+    "publisher"
+  ],
+  "additionalProperties": false
+}

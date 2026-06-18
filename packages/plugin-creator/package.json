@@ -7,7 +7,6 @@
 		"build:plugin": "./src/scripts/build-plugin.ts"
 	},
 	"scripts": {
-		"build:schema": "bun ./src/scripts/build-plugin-config-schema.ts",
 		"build": "bun build ./src/scripts/build-plugin.ts --outdir ./dist --minify --target bun"
 	},
 	"devDependencies": {
