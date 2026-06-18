@@ -1,15 +1,25 @@
 # Recall Marketplace Interface
 
-Small client and schema package for Recall-compatible plugin marketplaces.
+Client and schema package for Recall-compatible plugin marketplaces.
 
-It defines the communication contract between the app and any marketplace. The
-marketplace can implement storage, uploads, approval, moderation, styling, and
-admin tools however it wants, as long as the API responses match the shared
-schemas.
+Marketplace servers can import response schemas and input types without
+including the HTTP client:
 
-Start with a marketplace base URL that returns marketplace info. That info
-contains identity fields and route templates for listing, searching, inspecting,
-and reading plugin versions.
+```ts
+import {
+  MarketplaceInfoSchema,
+  type MarketplaceInfoInput,
+} from "@jrtilak-recall/marketplace-interface/server";
+```
 
-See [DOCS.md](./DOCS.md) for the marketplace contract and
-[src/response-schemas.ts](./src/response-schemas.ts) for the exact schemas.
+Recall clients can import only the marketplace client:
+
+```ts
+import {
+  createMarketplaceClient,
+  type MarketplaceInfo,
+} from "@jrtilak-recall/marketplace-interface/client";
+```
+
+See the [Marketplace Interface documentation](https://docs.recall.jrtilak.dev/core-packages/marketplace-interface/)
+for the marketplace contract and usage details.

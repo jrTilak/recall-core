@@ -1,9 +1,19 @@
 {
 	"name": "@jrtilak-recall/marketplace-interface",
 	"description": "Client interface for Recall-compatible marketplace servers",
+	"homepage": "https://docs.recall.jrtilak.dev/core-packages/marketplace-interface/",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jrTilak/recall-core.git",
+		"directory": "packages/marketplace-interface"
+	},
+	"bugs": {
+		"url": "https://github.com/jrTilak/recall-core/issues"
+	},
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module",
+	"sideEffects": false,
 	"private": false,
 	"version": "0.0.1-alpha",
 	"files": [
@@ -11,12 +21,21 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "bun build ./src/index.ts --outdir ./dist --minify --target bun && tsc -p tsconfig.build.json"
+		"build": "rm -rf ./dist && bun build ./src/index.ts ./src/client.ts ./src/server.ts --outdir ./dist --minify --target browser --external zod && tsc -p tsconfig.build.json",
+		"test": "bun test"
 	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js"
+		},
+		"./client": {
+			"types": "./dist/client.d.ts",
+			"import": "./dist/client.js"
+		},
+		"./server": {
+			"types": "./dist/server.d.ts",
+			"import": "./dist/server.js"
 		}
 	},
 	"dependencies": {
