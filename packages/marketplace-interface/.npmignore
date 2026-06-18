@@ -2,5 +2,4 @@
 !dist/
 !dist/**
 !README.md
-!DOCS.md
 !package.json

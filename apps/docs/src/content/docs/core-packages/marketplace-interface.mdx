@@ -5,3 +5,59 @@ description: Client interface for Recall-compatible marketplace servers.
 
 `@jrtilak-recall/marketplace-interface` provides the shared client interface
 used to communicate with Recall-compatible marketplace servers.
+
+[View the package source on GitHub](https://github.com/jrTilak/recall-core/tree/master/packages/marketplace-interface)
+
+The package provides TypeScript types, Zod response schemas, and a client for
+discovering marketplaces, listing plugins, reading plugin details, and resolving
+install metadata.
+
+It provides separate entry points so applications only import what they need:
+
+```ts
+// Marketplace server: schemas and server response types only.
+import {
+  MarketplaceInfoSchema,
+  type MarketplaceInfoInput,
+} from "@jrtilak-recall/marketplace-interface/server";
+
+// Recall client: HTTP client and validated client types only.
+import {
+  createMarketplaceClient,
+  type MarketplaceInfo,
+} from "@jrtilak-recall/marketplace-interface/client";
+```
+
+Use the `/server` entry point when implementing a marketplace API and the
+`/client` entry point when consuming one. This keeps server code from including
+the HTTP client and lets bundlers remove unused package code.
+
+## Entry point
+
+Recall discovers a marketplace by requesting its API entry point:
+
+```http
+GET <marketplace-base-url>
+```
+
+[Recall Marketplace](https://market.recall.jrtilak.dev/) is the official
+default marketplace. Its
+[live API response](https://market.recall.jrtilak.dev/api/) can be used as an
+example entry-point response:
+
+```json
+{
+  "name": "Default Marketplace",
+  "description": "Official marketplace for Recall plugins.",
+  "baseUrl": "https://market.recall.jrtilak.dev/api/",
+  "namespace": "default",
+  "urls": {
+    "listPlugins": "plugins?q=<query>",
+    "getPluginByName": "plugins/<plugin-name>",
+    "getPluginVersion": "plugins/<plugin-name>/<plugin-version>"
+  }
+}
+```
+
+See [Build a Marketplace Server](/build/marketplace-server/) for the complete
+route and response contract.

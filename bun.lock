@@ -98,6 +98,20 @@
       "name": "@recall/tokyo-night-theme",
       "version": "0.0.1",
     },
+    "scripts/build-assets": {
+      "name": "@jrtilak-recall/build-assets",
+      "dependencies": {
+        "@jrtilak-recall/marketplace-interface": "^0.0.1-alpha",
+        "@jrtilak-recall/plugin-schema": "^0.0.1-alpha",
+        "zod": "^4.4.3",
+      },
+      "devDependencies": {
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
   },
   "packages": {
     "@astrojs/compiler": ["@astrojs/compiler@4.0.0", "", {}, "sha512-eouss7G8ygdZqHuke033VMcVw5HTZUu+PXd/h06DGDUg/jt5btPYPqh66ENWw/mU78rBrf/oeC4oqoBwMtDMNA=="],
@@ -309,6 +323,8 @@
     "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.5.5", "", {}, "sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og=="],
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.9", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.0.3", "@jridgewell/sourcemap-codec": "^1.4.10" } }, "sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ=="],
+
+    "@jrtilak-recall/build-assets": ["@jrtilak-recall/build-assets@workspace:scripts/build-assets"],
 
     "@jrtilak-recall/docs": ["@jrtilak-recall/docs@workspace:apps/docs"],
 

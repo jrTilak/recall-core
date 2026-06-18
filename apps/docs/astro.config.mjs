@@ -29,6 +29,15 @@ export default defineConfig({
 						},
 					],
 				},
+				{
+					label: "Build with Recall",
+					items: [
+						{
+							label: "Build a Marketplace Server",
+							slug: "build/marketplace-server",
+						},
+					],
+				},
 			],
 		}),
 	],
