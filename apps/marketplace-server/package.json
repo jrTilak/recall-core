@@ -8,19 +8,21 @@
 		"deploy": "wrangler deploy --minify",
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings",
 		"typecheck": "tsc --noEmit",
+		"test": "bun test",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate:local": "wrangler d1 migrations apply recall-marketplace --local",
 		"db:migrate:remote": "wrangler d1 migrations apply recall-marketplace --remote"
 	},
 	"dependencies": {
-		"@jrtilak-recall/marketplace-interface": "0.0.1-alpha",
-		"@jrtilak-recall/plugin-schema": "0.0.1-alpha",
+		"@jrtilak-recall/marketplace-interface": "0.0.2-alpha",
+		"@jrtilak-recall/plugin-schema": "0.0.2-alpha",
 		"better-auth": "^1.6.18",
 		"drizzle-orm": "^0.45.2",
 		"fflate": "^0.8.2",
 		"hono": "^4.12.25"
 	},
 	"devDependencies": {
+		"@types/bun": "latest",
 		"@types/node": "latest",
 		"drizzle-kit": "^0.31.10",
 		"typescript": "^5",

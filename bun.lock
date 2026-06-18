@@ -26,14 +26,15 @@
     "apps/marketplace-server": {
       "name": "@recall/marketplace-server",
       "dependencies": {
-        "@jrtilak-recall/marketplace-interface": "0.0.1-alpha",
-        "@jrtilak-recall/plugin-schema": "0.0.1-alpha",
+        "@jrtilak-recall/marketplace-interface": "0.0.2-alpha",
+        "@jrtilak-recall/plugin-schema": "0.0.2-alpha",
         "better-auth": "^1.6.18",
         "drizzle-orm": "^0.45.2",
         "fflate": "^0.8.2",
         "hono": "^4.12.25",
       },
       "devDependencies": {
+        "@types/bun": "latest",
         "@types/node": "latest",
         "drizzle-kit": "^0.31.10",
         "typescript": "^5",
@@ -73,7 +74,7 @@
     },
     "packages/plugin-schema": {
       "name": "@jrtilak-recall/plugin-schema",
-      "version": "0.0.1-alpha",
+      "version": "0.0.2-alpha",
       "dependencies": {
         "zod": "^4.4.3",
       },
@@ -1119,9 +1120,11 @@
 
     "@esbuild-kit/esm-loader/get-tsconfig": ["get-tsconfig@4.14.0", "", { "dependencies": { "resolve-pkg-maps": "^1.0.0" } }, "sha512-yTb+8DXzDREzgvYmh6s9vHsSVCHeC0G3PI5bEXNBHtmshPnO+S5O7qgLEOn0I5QvMy6kpZN8K1NKGyilLb93wA=="],
 
-    "@mdx-js/mdx/estree-walker": ["estree-walker@3.0.3", "", { "dependencies": { "@types/estree": "^1.0.0" } }, "sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g=="],
+    "@jrtilak-recall/build-assets/@jrtilak-recall/plugin-schema": ["@jrtilak-recall/plugin-schema@0.0.1-alpha", "", { "peerDependencies": { "typescript": "^5", "zod": "^4.4.3" } }, "sha512-ykAPxVcFaR/e0ECT19NJPu1q7nhU33PKN0tGGd7B3EZWLe1WAfUPHFmg6y0oUOwyxKUjECfytZM8jfLSqegSrA=="],
 
-    "@recall/marketplace-server/@jrtilak-recall/marketplace-interface": ["@jrtilak-recall/marketplace-interface@0.0.1-alpha", "", { "dependencies": { "zod": "^4.4.3" }, "peerDependencies": { "typescript": "^5" } }, "sha512-Fiq3/GXfqaINKLIjSvjO/DA/Qe0VQUe9Q2mOJge2BNFl6Ly2SX2tlxCZ5wF38XiEYsUvZi4q21H6xtZNusqftQ=="],
+    "@jrtilak-recall/plugin-creator/@jrtilak-recall/plugin-schema": ["@jrtilak-recall/plugin-schema@0.0.1-alpha", "", { "peerDependencies": { "typescript": "^5", "zod": "^4.4.3" } }, "sha512-ykAPxVcFaR/e0ECT19NJPu1q7nhU33PKN0tGGd7B3EZWLe1WAfUPHFmg6y0oUOwyxKUjECfytZM8jfLSqegSrA=="],
+
+    "@mdx-js/mdx/estree-walker": ["estree-walker@3.0.3", "", { "dependencies": { "@types/estree": "^1.0.0" } }, "sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g=="],
 
     "anymatch/picomatch": ["picomatch@2.3.2", "", {}, "sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA=="],
 

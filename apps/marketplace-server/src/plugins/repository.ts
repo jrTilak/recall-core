@@ -1,8 +1,8 @@
 import type {
-	FindPluginByNameFromServerType,
-	ListPluginsResponseFromServerType,
-} from "@recall/marketplace-interface";
-import type { PluginConfig } from "@recall/plugin-schema";
+	PluginListResponseInput,
+	PluginResponseInput,
+} from "@jrtilak-recall/marketplace-interface/server";
+import type { PluginConfig } from "@jrtilak-recall/plugin-schema";
 import { and, desc, eq, like, or, sql } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { Context } from "hono";
@@ -44,7 +44,7 @@ export class Repo {
 	/** Lists plugins, optionally filtered by a search query. */
 	async findManyPlugins(
 		filter?: Partial<{ search: string }>,
-	): Promise<ListPluginsResponseFromServerType> {
+	): Promise<PluginListResponseInput> {
 		const search = filter?.search;
 		const query = this.db
 			.select({
@@ -73,9 +73,7 @@ export class Repo {
 	}
 
 	/** Finds one plugin by package name. */
-	async findPluginByName(
-		name: string,
-	): Promise<FindPluginByNameFromServerType | null> {
+	async findPluginByName(name: string): Promise<PluginResponseInput | null> {
 		const rows = await this.db
 			.select({
 				plugin: schema.plugins,
@@ -307,7 +305,7 @@ function slugUsername(value: string) {
 function toPluginResponse(
 	plugin: PluginRow,
 	publisher: PublisherRow | null,
-): FindPluginByNameFromServerType {
+): PluginResponseInput {
 	return {
 		name: plugin.name,
 		displayName: plugin.displayName,

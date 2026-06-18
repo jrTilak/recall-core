@@ -1,15 +1,16 @@
 import {
-	type FindPluginByNameFromServerType,
-	type ListPluginsResponseFromServerType,
-	type MarketplaceInfoType,
+	type MarketplaceInfoInput,
 	PLUGIN_NAME_PLACEHOLDER,
 	PLUGIN_VERSION_PLACEHOLDER,
-	type PluginVersionType,
+	type PluginListResponseInput,
+	type PluginResponseInput,
+	type PluginVersionResponseInput,
 	QUERY_PLACEHOLDER,
-} from "@recall/marketplace-interface";
+} from "@jrtilak-recall/marketplace-interface/server";
 import { Hono } from "hono";
 import type { Env } from "../env";
 import { absoluteUrl, json } from "../lib/http";
+import { parseStoredPermissions } from "../plugins/permissions";
 import { createRepo } from "../plugins/repository";
 
 type AppEnv = { Bindings: Env };
@@ -19,7 +20,7 @@ export const apiRoute = new Hono<AppEnv>({ strict: false });
 apiRoute.get("/", (c) => {
 	const apiBaseUrl = absoluteUrl(c.req.url, "/api/");
 
-	const info: MarketplaceInfoType = {
+	const info: MarketplaceInfoInput = {
 		name: c.env.MARKETPLACE_NAME ?? "Recall Plugin Registry",
 		description:
 			c.env.MARKETPLACE_DESCRIPTION ??
@@ -37,14 +38,14 @@ apiRoute.get("/", (c) => {
 });
 
 apiRoute.get("/plugins", async (c) => {
-	const plugins: ListPluginsResponseFromServerType = await createRepo(
-		c,
-	).findManyPlugins({ search: c.req.query("q") });
+	const plugins: PluginListResponseInput = await createRepo(c).findManyPlugins({
+		search: c.req.query("q"),
+	});
 	return json(plugins);
 });
 
 apiRoute.get("/plugins/:name", async (c) => {
-	const plugin: FindPluginByNameFromServerType | null = await createRepo(
+	const plugin: PluginResponseInput | null = await createRepo(
 		c,
 	).findPluginByName(decodeURIComponent(c.req.param("name")));
 
@@ -60,7 +61,7 @@ apiRoute.get("/plugins/:name/:version", async (c) => {
 
 	if (!versionRow) return json({ error: "Plugin version not found" }, 404);
 
-	const pluginVersion: PluginVersionType = {
+	const pluginVersion: PluginVersionResponseInput = {
 		version: versionRow.version,
 		size: versionRow.size,
 		downloadUrl: absoluteUrl(
@@ -70,10 +71,7 @@ apiRoute.get("/plugins/:name/:version", async (c) => {
 			)}/plugin.zip`,
 		),
 		manifestVersion: versionRow.manifestVersion,
-		permissions:
-			typeof versionRow.permissions === "string"
-				? JSON.parse(versionRow.permissions)
-				: [],
+		permissions: parseStoredPermissions(versionRow.permissions),
 		main: versionRow.main,
 		theme: versionRow.theme,
 		createdAt: versionRow.createdAt,
