@@ -1,1 +1,1 @@
-export type Env = CloudflareBindings;
+export type Env = Cloudflare.Env;

@@ -1,4 +1,4 @@
-import { PluginConfigSchema } from "@recall/plugin-schema";
+import { PluginConfigSchema } from "@jrtilak-recall/plugin-schema";
 import { unzipSync } from "fflate";
 import { Hono } from "hono";
 import { requireSession } from "../auth/server";

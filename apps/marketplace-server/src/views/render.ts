@@ -1,4 +1,5 @@
 import { html, raw } from "hono/html";
+import { parseStoredPermissions } from "../plugins/permissions";
 
 type PageName = "home" | "plugin-detail" | "upload" | "login" | "signup";
 
@@ -61,13 +62,7 @@ const helpers = {
 		});
 	},
 	permissions(value: unknown) {
-		if (typeof value !== "string") return [];
-		try {
-			const parsed = JSON.parse(value);
-			return Array.isArray(parsed) ? parsed.map(String) : [];
-		} catch {
-			return [];
-		}
+		return parseStoredPermissions(value);
 	},
 };
 
@@ -109,20 +104,87 @@ export function renderPage(name: PageName, data: RenderData) {
 							var(--rm-bg);
 						font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 					}
-					.navbar {
-						background: rgba(255, 255, 255, .86);
-						backdrop-filter: blur(16px);
+					.site-header {
+						background: rgba(255, 255, 255, .94);
+						backdrop-filter: blur(18px);
 						border-bottom: 1px solid var(--rm-border);
+						box-shadow: 0 8px 28px rgba(15, 26, 26, .05);
+					}
+					.site-header-inner {
+						min-height: 64px;
+					}
+					.site-brand {
+						color: var(--rm-ink);
+						text-decoration: none;
+					}
+					.site-brand:hover {
+						color: var(--rm-ink);
 					}
 					.brand-mark {
-						width: 34px;
-						height: 34px;
-						border-radius: 8px;
-						background: var(--rm-ink);
-						color: var(--rm-primary);
+						width: 38px;
+						height: 38px;
+						border-radius: 10px;
+						background: var(--rm-primary);
+						color: var(--rm-primary-ink);
 						display: inline-grid;
 						place-items: center;
 						font-weight: 800;
+						font-size: 1.05rem;
+						box-shadow: inset 0 0 0 1px rgba(15, 26, 26, .08);
+					}
+					.brand-copy {
+						display: grid;
+						line-height: 1.05;
+					}
+					.brand-name {
+						font-size: 1rem;
+						font-weight: 800;
+						letter-spacing: -.01em;
+					}
+					.brand-context {
+						color: var(--rm-muted-ink);
+						font-size: .72rem;
+						font-weight: 650;
+						letter-spacing: .04em;
+						margin-top: 4px;
+						text-transform: uppercase;
+					}
+					.nav-actions {
+						display: flex;
+						align-items: center;
+						justify-content: flex-end;
+						gap: 8px;
+					}
+					.user-chip {
+						display: inline-flex;
+						align-items: center;
+						gap: 8px;
+						min-width: 0;
+						max-width: 220px;
+						padding: 5px 10px 5px 5px;
+						border: 1px solid var(--rm-border);
+						border-radius: 999px;
+						background: var(--rm-muted);
+						color: var(--rm-ink);
+					}
+					.user-avatar {
+						width: 28px;
+						height: 28px;
+						border-radius: 50%;
+						display: inline-grid;
+						place-items: center;
+						flex: 0 0 auto;
+						background: var(--rm-ink);
+						color: var(--rm-primary);
+						font-size: .75rem;
+						font-weight: 800;
+					}
+					.user-label {
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						font-size: .82rem;
+						font-weight: 650;
 					}
 					.btn {
 						border-radius: 8px;
@@ -315,6 +377,22 @@ export function renderPage(name: PageName, data: RenderData) {
 						border-radius: 8px;
 					}
 					@media (max-width: 720px) {
+						.site-header-inner {
+							min-height: 58px;
+						}
+						.brand-context,
+						.user-label {
+							display: none;
+						}
+						.user-chip {
+							padding-right: 5px;
+						}
+						.nav-actions {
+							gap: 6px;
+						}
+						.nav-actions .btn {
+							padding-inline: .65rem;
+						}
 						.plugin-tile {
 							grid-template-columns: auto 1fr;
 						}
@@ -325,30 +403,11 @@ export function renderPage(name: PageName, data: RenderData) {
 							grid-template-columns: 1fr;
 						}
 					}
-				</style>
-			</head>
-			<body>
-				<nav class="navbar navbar-expand-lg sticky-top">
-					<div class="container py-2">
-						<a class="navbar-brand d-flex align-items-center gap-2 fw-semibold" href="/">
-							<span class="brand-mark">R</span>
-							<span>Recall Marketplace</span>
-						</a>
-						<div class="d-flex align-items-center gap-2 ms-auto">
-							<a class="btn btn-primary" href="/upload">Upload Plugin</a>
-							${
-								data.session
-									? raw(`<span class="text-secondary small d-none d-sm-inline">${escapeHtml(data.session.user.name || data.session.user.email)}</span>
-									<form method="post" action="/logout" class="m-0">
-										<button class="btn btn-outline-secondary" type="submit">Log out</button>
-									</form>`)
-									: raw(`<a class="btn btn-outline-secondary" href="/login">Log in</a>
-									<a class="btn btn-outline-dark" href="/signup">Sign up</a>`)
-							}
-						</div>
-					</div>
-				</nav>
-				<main class="container py-4 py-lg-5">${raw(content)}</main>
+					</style>
+				</head>
+				<body>
+					${raw(renderHeader(data.session))}
+					<main class="container py-4 py-lg-5">${raw(content)}</main>
 				<script>
 					document.addEventListener("click", async (event) => {
 						const button = event.target.closest("[data-copy]");
@@ -364,7 +423,43 @@ export function renderPage(name: PageName, data: RenderData) {
 					});
 				</script>
 			</body>
-		</html>`);
+			</html>`);
+}
+
+export function renderHeader(session: SessionData) {
+	const accountActions = session
+		? renderAuthenticatedActions(session)
+		: `<a class="btn btn-outline-secondary" href="/login">Log in</a>
+			<a class="btn btn-outline-dark" href="/signup">Sign up</a>`;
+
+	return `<header class="site-header sticky-top">
+		<nav class="container site-header-inner d-flex align-items-center justify-content-between gap-3" aria-label="Primary navigation">
+			<a class="site-brand d-flex align-items-center gap-2" href="/">
+				<span class="brand-mark" aria-hidden="true">R</span>
+				<span class="brand-copy">
+					<span class="brand-name">Recall</span>
+					<span class="brand-context">Marketplace</span>
+				</span>
+			</a>
+			<div class="nav-actions ms-auto">
+				<a class="btn btn-primary" href="/upload">Upload<span class="d-none d-sm-inline"> Plugin</span></a>
+				${accountActions}
+			</div>
+		</nav>
+	</header>`;
+}
+
+function renderAuthenticatedActions(session: NonNullable<SessionData>) {
+	const label = session.user.name || session.user.email;
+	const initial = label.slice(0, 1).toUpperCase() || "U";
+
+	return `<span class="user-chip" title="${escapeHtml(label)}">
+			<span class="user-avatar" aria-hidden="true">${escapeHtml(initial)}</span>
+			<span class="user-label">${escapeHtml(label)}</span>
+		</span>
+		<form method="post" action="/logout" class="m-0">
+			<button class="btn btn-outline-secondary" type="submit">Log out</button>
+		</form>`;
 }
 
 const pages: Record<PageName, (data: RenderData) => string> = {
