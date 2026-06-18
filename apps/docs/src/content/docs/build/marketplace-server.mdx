@@ -1,0 +1,247 @@
+---
+title: Build a Marketplace Server
+description: Implement a marketplace server compatible with Recall.
+---
+
+A Recall marketplace can use any framework, database, storage provider,
+authentication system, or deployment platform. Recall only requires the server
+to expose a compatible API.
+
+For TypeScript projects, install the official package to use its types and Zod
+schemas:
+
+```sh
+bun add @jrtilak-recall/marketplace-interface
+```
+
+Import marketplace contracts from the server-specific entry point:
+
+```ts
+import {
+  MarketplaceInfoSchema,
+  PluginListResponseSchema,
+  PluginResponseSchema,
+  PluginVersionResponseSchema,
+  type MarketplaceInfoInput,
+  type PluginListResponseInput,
+  type PluginResponseInput,
+  type PluginVersionResponseInput,
+} from "@jrtilak-recall/marketplace-interface/server";
+```
+
+The `Input` types represent values your server can return before schema defaults
+are applied. For example, `PluginResponseInput` allows `totalDownloads` to be
+omitted because `PluginResponseSchema` defaults it to `0`.
+
+The examples below come from the official
+[Recall Marketplace](https://market.recall.jrtilak.dev/). For detailed field
+validation, use the
+[contract schema source](https://github.com/jrTilak/recall-core/blob/master/packages/marketplace-interface/src/contracts.ts)
+as the source of truth.
+
+## Marketplace entry point
+
+Recall starts with one marketplace base URL:
+
+```http
+GET https://market.recall.jrtilak.dev/api/
+```
+
+The response identifies the marketplace and tells Recall which route templates
+to use:
+
+```json
+{
+  "name": "Default Marketplace",
+  "description": "Official marketplace for Recall plugins.",
+  "baseUrl": "https://market.recall.jrtilak.dev/api/",
+  "namespace": "default",
+  "urls": {
+    "listPlugins": "plugins?q=<query>",
+    "getPluginByName": "plugins/<plugin-name>",
+    "getPluginVersion": "plugins/<plugin-name>/<plugin-version>"
+  }
+}
+```
+
+In a TypeScript server, define the response with `MarketplaceInfoInput` and
+optionally validate it before returning it:
+
+```ts
+const marketplace: MarketplaceInfoInput = {
+  name: "Default Marketplace",
+  description: "Official marketplace for Recall plugins.",
+  namespace: "default",
+  baseUrl: "https://market.recall.jrtilak.dev/api/",
+  urls: {
+    listPlugins: "plugins?q=<query>",
+    getPluginByName: "plugins/<plugin-name>",
+    getPluginVersion: "plugins/<plugin-name>/<plugin-version>",
+  },
+};
+
+return Response.json(MarketplaceInfoSchema.parse(marketplace));
+```
+
+| Field                   | Required | Purpose                                                           |
+| ----------------------- | -------- | ----------------------------------------------------------------- |
+| `name`                  | Yes      | Human-readable marketplace name.                                  |
+| `description`           | No       | Short explanation of the marketplace. May be `null`.              |
+| `iconUrl`               | No       | Marketplace icon URL. May be `null`.                              |
+| `homepageUrl`           | No       | Public marketplace homepage. May be `null`.                       |
+| `namespace`             | Yes      | Unique identifier used to prevent conflicts between marketplaces. |
+| `baseUrl`               | Yes      | Base URL used to resolve relative route templates.                |
+| `urls`                  | Yes      | Object containing all required marketplace route templates.       |
+| `urls.listPlugins`      | Yes      | Route for listing and searching plugins.                          |
+| `urls.getPluginByName`  | Yes      | Route for reading one plugin.                                     |
+| `urls.getPluginVersion` | Yes      | Route for reading install metadata for a plugin version.          |
+
+Route templates may be absolute URLs or relative to `baseUrl`. Recall replaces
+these supported placeholders:
+
+- `<query>` with an optional search query.
+- `<plugin-name>` with the URL-encoded plugin package name.
+- `<plugin-version>` with the requested version.
+
+## List plugins
+
+The `listPlugins` route returns an array of available plugins. The `<query>`
+placeholder is optional and can be used to filter the list.
+
+```http
+GET https://market.recall.jrtilak.dev/api/plugins?q=
+```
+
+Example response:
+
+```json
+[
+  {
+    "name": "@recall/default-theme",
+    "displayName": "Default Theme",
+    "description": "The default theme for Recall.",
+    "author": "jrtilak <https://jrtilak.dev>",
+    "homepageUrl": null,
+    "latestVersion": "0.0.1",
+    "totalDownloads": 8,
+    "createdAt": "2026-06-15T05:42:36.877Z",
+    "updatedAt": "2026-06-15T05:42:36.877Z",
+    "category": "theme",
+    "iconUrl": null,
+    "publisher": {
+      "username": "jrtilak",
+      "isVerified": true
+    }
+  }
+]
+```
+
+### Plugin response fields
+
+The list route returns an array of these objects. The plugin detail route
+returns one object with the same fields.
+
+Use `PluginListResponseInput` for the list response and `PluginResponseInput`
+for a single plugin response. Validate them with `PluginListResponseSchema` and
+`PluginResponseSchema` when runtime checking is required.
+
+| Field                  | Required | Purpose                                                                     |
+| ---------------------- | -------- | --------------------------------------------------------------------------- |
+| `name`                 | Yes      | Unique plugin package name.                                                 |
+| `displayName`          | Yes      | Human-readable plugin name.                                                 |
+| `description`          | No       | Short plugin description. May be `null`.                                    |
+| `author`               | Yes      | Plugin author information.                                                  |
+| `homepageUrl`          | No       | Plugin homepage or documentation URL. May be `null`.                        |
+| `latestVersion`        | Yes      | Latest version available from this marketplace.                             |
+| `totalDownloads`       | No       | Marketplace download count. Defaults to `0` when omitted during validation. |
+| `createdAt`            | No       | Creation timestamp. May be `null`.                                          |
+| `updatedAt`            | No       | Last update timestamp. May be `null`.                                       |
+| `category`             | No       | Marketplace-defined plugin category. May be `null`.                         |
+| `iconUrl`              | No       | Plugin icon URL. May be `null`.                                             |
+| `publisher`            | Yes      | Information about the account that published the plugin.                    |
+| `publisher.username`   | Yes      | Publisher account name.                                                     |
+| `publisher.isVerified` | Yes      | Whether the marketplace has verified the publisher.                         |
+
+Recall derives the client-side plugin ID as
+`<marketplace-namespace>:<plugin-name>`. The server does not include this `id`
+field in its response.
+
+## Get a plugin
+
+The `getPluginByName` route returns one plugin using the same response shape
+described above.
+
+```http
+GET https://market.recall.jrtilak.dev/api/plugins/%40recall%2Fdefault-theme
+```
+
+The `<plugin-name>` value must be URL encoded. For example,
+`@recall/default-theme` becomes `%40recall%2Fdefault-theme`.
+
+## Get a plugin version
+
+The `getPluginVersion` route returns the information Recall needs to install a
+specific version.
+
+Use `PluginVersionResponseInput` for this response and
+`PluginVersionResponseSchema` for runtime validation.
+
+```http
+GET https://market.recall.jrtilak.dev/api/plugins/%40recall%2Fdefault-theme/0.0.1
+```
+
+Example response:
+
+```json
+{
+  "version": "0.0.1",
+  "size": 923,
+  "downloadUrl": "https://market.recall.jrtilak.dev/api/plugins/%40recall%2Fdefault-theme/0.0.1/plugin.zip",
+  "manifestVersion": "0.0.1",
+  "permissions": ["ui.theme.static.write"],
+  "main": null,
+  "theme": "theme.json",
+  "createdAt": "2026-06-15T05:42:36.877Z"
+}
+```
+
+| Field             | Required | Purpose                                                                         |
+| ----------------- | -------- | ------------------------------------------------------------------------------- |
+| `version`         | Yes      | Plugin version represented by this response.                                    |
+| `size`            | Yes      | Download archive size in bytes.                                                 |
+| `downloadUrl`     | Yes      | URL of the plugin zip archive.                                                  |
+| `manifestVersion` | Yes      | Recall plugin manifest version used by the plugin.                              |
+| `permissions`     | Yes      | Permissions requested by the plugin. Use an empty array when none are required. |
+| `main`            | No       | Path to the compiled plugin entry point. May be `null`.                         |
+| `theme`           | No       | Path to the plugin theme file. May be `null`.                                   |
+| `createdAt`       | Yes      | Timestamp for when this version was published.                                  |
+
+`downloadUrl` may be a marketplace route, external object-storage URL, or a
+short-lived signed URL.
+
+## Plugin archive
+
+The downloaded zip must contain the plugin files at its root:
+
+```text
+plugin.zip
+  manifest.json
+  index.js
+  theme.json
+```
+
+Do not wrap the files in an additional top-level directory:
+
+```text
+plugin.zip
+  plugin-folder/
+    manifest.json
+    index.js
+```
+
+Only include files required by the plugin. A theme-only plugin may omit
+`index.js`, while a code plugin may omit `theme.json`.
+
+See the
+[contract schema source](https://github.com/jrTilak/recall-core/blob/master/packages/marketplace-interface/src/contracts.ts)
+for exact validation constraints and the latest contract.
