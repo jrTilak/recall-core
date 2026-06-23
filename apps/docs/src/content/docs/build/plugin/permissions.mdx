@@ -15,6 +15,10 @@ the permissions required for the plugin to work.
 }
 ```
 
+See the
+[default theme plugin](https://github.com/jrTilak/recall-core/tree/master/plugins/default-theme)
+for a complete example.
+
 The available permissions are defined by
 [`PluginPermissionSchema`](https://github.com/jrTilak/recall-core/blob/master/packages/plugin-schema/src/schema/plugin-permissions.ts).
 
@@ -28,6 +32,12 @@ colors and other supported UI theme variables.
 Use this permission for theme plugins whose appearance is defined through a
 theme JSON file. Theme-only plugins do not need additional permissions.
 
+### `options.sorting-methods.modify`
+
+Allows a plugin to register, update, or remove sorting method definitions
+across Recall apps.
+
+Use this permission for plugins that provide custom sorting implementations.
 See the
-[default theme plugin](https://github.com/jrTilak/recall-core/tree/master/plugins/default-theme)
-for a complete example.
+[default sorting methods plugin](https://github.com/jrTilak/recall-core/tree/master/plugins/default-sorting-methods)
+for an example.
