@@ -46,7 +46,8 @@
           "items": {
             "type": "string",
             "enum": [
-              "ui.theme.static.write"
+              "ui.theme.static.write",
+              "options.sorting-methods.modify"
             ]
           },
           "description": "List of permissions the plugin requires to operate"
@@ -62,7 +63,8 @@
           "type": "string",
           "enum": [
             "theme",
-            "others"
+            "others",
+            "feature"
           ]
         },
         "iconUrl": {
