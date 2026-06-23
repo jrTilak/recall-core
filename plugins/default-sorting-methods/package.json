@@ -1,0 +1,29 @@
+{
+  "$schema": "https://recall.jrtilak.dev/schemas/plugin-config/0.0.1.json",
+  "name": "@jrtilak-recall/default-sorting-methods",
+  "description": "Default sorting methods.",
+  "module": "src/index.ts",
+  "displayName": "Default Sorting Methods",
+  "version": "0.0.1",
+  "author": "jrtilak <https://jrtilak.dev>",
+  "recall": {
+    "permissions": [
+      "options.sorting-methods.modify"
+    ],
+    "manifestVersion": "0.0.1",
+    "category": "feature",
+    "tags": [
+      "default",
+      "feature",
+      "sorting"
+    ],
+    "main": "src/index.ts"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
