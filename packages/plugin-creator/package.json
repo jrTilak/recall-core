@@ -4,17 +4,22 @@
 	"description": "A plugin creator for Recall",
 	"type": "module",
 	"bin": {
-		"build:plugin": "./src/scripts/build-plugin.ts"
+		"build:plugin": "./dist/build-plugin.js"
 	},
+	"files": [
+		"dist",
+		"README.md"
+	],
 	"scripts": {
-		"build": "bun build ./src/scripts/build-plugin.ts --outdir ./dist --minify --target bun"
+		"build": "rm -rf ./dist && bun build ./src/scripts/build-plugin.ts --outdir ./dist --minify --target bun",
+		"prepack": "bun run build"
 	},
 	"devDependencies": {
 		"@types/bun": "latest"
 	},
 	"dependencies": {
-		"zod": "^4.4.3",
-		"@jrtilak-recall/plugin-schema": "0.0.1-alpha"
+		"@jrtilak-recall/plugin-schema": "^0.0.3-alpha",
+		"zod": "^4.4.3"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
