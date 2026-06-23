@@ -54,3 +54,8 @@ const validatedTheme = ThemeSchema.parse(theme);
 
 See the [Plugin Schema documentation](https://docs.recall.jrtilak.dev/core-packages/plugin-schema/)
 for package details and related resources.
+
+## Sorting method permission
+
+`options.sorting-methods.modify` allows a plugin to register, update, or remove
+sorting method definitions.

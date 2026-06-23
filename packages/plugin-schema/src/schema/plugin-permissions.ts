@@ -9,6 +9,12 @@ export const PluginPermissionSchema = z.enum([
 	 * configuration. This permission is sufficient for theme-only plugins.
 	 */
 	"ui.theme.static.write",
+
+	/**
+	 * Registers, updates, or removes sorting method definitions across Recall
+	 * apps.
+	 */
+	"options.sorting-methods.modify",
 ]);
 
 export type PluginPermission = z.infer<typeof PluginPermissionSchema>;

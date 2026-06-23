@@ -32,7 +32,7 @@ const ACTIVE_MANIFEST_VERSIONS = MANIFEST_VERSIONS.filter(
 export const ManifestVersionSchema = z.enum(ACTIVE_MANIFEST_VERSIONS);
 
 /** Categories currently understood by Recall. */
-export const PluginCategorySchema = z.enum(["theme", "others"]);
+export const PluginCategorySchema = z.enum(["theme", "others", "feature"]);
 
 /**
  * Recall-specific fields stored under the `recall` key in a plugin manifest.
